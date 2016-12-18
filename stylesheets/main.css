@@ -1,0 +1,55 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle, transparent 50%, rgba(0, 0, 0, .6)),
+    url('../images/background.png') #356300;
+}
+
+.board {
+  /*background:
+    #eee url('data:image/svg+xml,\
+            <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill-opacity=".25" >\
+            <rect x="75" width="75" height="75" />\
+            <rect y="75" width="75" height="75" />\
+            </svg>');*/
+
+    /*background:
+      url('data:image/svg+xml,\
+              <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="#8a390a" fill-opacity=".6">\
+                <rect x="75" width="75" height="75" />\
+                <rect y="75" width="75" height="75" />\
+              </svg>'),
+      url('../img/wood.png');*/
+
+    background:
+      url('data:image/svg+xml,\
+              <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="#181818" fill-opacity="1">\
+                <rect x="50%" width="50%" height="50%" />\
+                <rect y="50%" width="50%" height="50%" />\
+              </svg>') #fff;
+  background-size: 150px 150px;
+  width: 600px;
+  height: 600px;
+  border: 10px solid #181818;
+  border-radius: 4px;
+}
+
+.board__piece {
+  width: 65px;
+  height: 65px;
+  margin: 5px;
+  background: radial-gradient(rgba(0, 0, 0, .4) 3%, transparent 60%, rgba(0, 0, 0, .6));
+  border-radius: 50%;
+}
+
+.board__piece:hover {
+  cursor: all-scroll;
+  /*outline: 2px solid red;*/
+}
