@@ -49,5 +49,5 @@ body {
 }
 
 .board__piece--white {
-    background: radial-gradient(white, gray);
+    background: radial-gradient(#f0d5a0 3%, #e5a949 22%, #f0d5a0 27%, #e5a949 40%, #f0d5a0 45%, #e5a949 57%, #f0d5a0 61%, #d58f30 75%, #ffad26 100%);
 }
