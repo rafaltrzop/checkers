@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/normalize.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/main.css') }}">
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+    </body>
+</html>
