@@ -1,1 +1,2 @@
-from .checkers import app
+from .checkers import *
+from .game import *
