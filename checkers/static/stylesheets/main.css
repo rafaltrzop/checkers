@@ -36,8 +36,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 65px;
-    height: 65px;
+    width: 85%;
+    height: 85%;
     margin: 0 auto;
     border-radius: 50%;
 }
