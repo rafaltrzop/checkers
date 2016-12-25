@@ -18,3 +18,7 @@ def test_piece_is_not_a_king():
     piece = Piece('color')
     assert piece.king == False
 
+def test_piece_becomes_king():
+    piece = Piece('color')
+    piece.become_king()
+    assert piece.king == True

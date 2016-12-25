@@ -1,12 +1,15 @@
 class Piece:
-    def __init__(self, color, king=False):
+    def __init__(self, color):
         self.color = color
-        self.king = king
+        self.king = False
+
+    def become_king(self):
+        self.king = True
 
 class LightPiece(Piece):
-    def __init__(self, color='light', king=False):
-        super().__init__(color, king)
+    def __init__(self, color='light'):
+        super().__init__(color)
 
 class DarkPiece(Piece):
-    def __init__(self, color='dark', king=False):
-        super().__init__(color, king)
+    def __init__(self, color='dark'):
+        super().__init__(color)
