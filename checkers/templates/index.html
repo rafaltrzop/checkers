@@ -3,140 +3,16 @@
 {% block title %}Checkers{% endblock %}
 {% block body %}
     <table class="board">
-        <tr>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--dark"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--dark"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--dark"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--dark"></div>
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                <div class="board__piece board__piece--dark"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--dark"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--dark"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--dark"></div>
-            </td>
-            <td></td>
-        </tr>
-
-        <tr>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--dark"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--dark"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--dark"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--dark"></div>
-            </td>
-        </tr>
-
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-
-        <tr>
-            <td>
-                <div class="board__piece board__piece--light"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--light"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--light"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--light"></div>
-            </td>
-            <td></td>
-        </tr>
-
-        <tr>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--light"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--light"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--light"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--light"></div>
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                <div class="board__piece board__piece--light"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--light"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--light"></div>
-            </td>
-            <td></td>
-            <td>
-                <div class="board__piece board__piece--light"></div>
-            </td>
-            <td></td>
-        </tr>
+        {% for row in board %}
+            <tr>
+                {% for piece in row %}
+                  <td>
+                      {% if piece %}
+                          <div class="board__piece board__piece--{{ piece.color }} {% if piece.king %}board__piece--king{% endif %}"></div>
+                      {% endif %}
+                  </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
     </table>
 {% endblock %}
