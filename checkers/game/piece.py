@@ -1,3 +1,6 @@
+COLOR_LIGHT = 'light'
+COLOR_DARK = 'dark'
+
 class Piece:
     def __init__(self, color):
         self.color = color
@@ -7,9 +10,9 @@ class Piece:
         self.king = True
 
 class LightPiece(Piece):
-    def __init__(self, color='light'):
+    def __init__(self, color=COLOR_LIGHT):
         super().__init__(color)
 
 class DarkPiece(Piece):
-    def __init__(self, color='dark'):
+    def __init__(self, color=COLOR_DARK):
         super().__init__(color)
