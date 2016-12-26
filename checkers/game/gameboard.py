@@ -1,7 +1,18 @@
 from .piece import *
 
+DEFAULT_BOARD = [
+    [None, DarkPiece(), None, DarkPiece(), None, DarkPiece(), None, DarkPiece()],
+    [DarkPiece(), None, DarkPiece(), None, DarkPiece(), None, DarkPiece(), None],
+    [None, DarkPiece(), None, DarkPiece(), None, DarkPiece(), None, DarkPiece()],
+    [None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None],
+    [LightPiece(), None, LightPiece(), None, LightPiece(), None, LightPiece(), None],
+    [None, LightPiece(), None, LightPiece(), None, LightPiece(), None, LightPiece()],
+    [LightPiece(), None, LightPiece(), None, LightPiece(), None, LightPiece(), None]
+]
+
 class Gameboard:
-    def __init__(self, board):
+    def __init__(self, board=DEFAULT_BOARD):
         self.board = self.__ensure_valid_board(board)
 
     def move(self, current_position, destination):
