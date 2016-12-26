@@ -1,4 +1,5 @@
 from .piece import *
+from copy import deepcopy
 
 DEFAULT_BOARD = [
     [None, DarkPiece(), None, DarkPiece(), None, DarkPiece(), None, DarkPiece()],
@@ -13,7 +14,7 @@ DEFAULT_BOARD = [
 
 class Gameboard:
     def __init__(self, board=DEFAULT_BOARD):
-        self.board = self.__ensure_valid_board(board)
+        self.board = self.__ensure_valid_board(deepcopy(board))
 
     def move(self, current_position, destination):
         cur_x = current_position['x']

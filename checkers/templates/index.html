@@ -2,17 +2,5 @@
 
 {% block title %}Checkers{% endblock %}
 {% block body %}
-    <table class="board">
-        {% for row in board %}
-            <tr>
-                {% for piece in row %}
-                  <td>
-                      {% if piece %}
-                          <div class="board__piece board__piece--{{ piece.color }} {% if piece.king %}board__piece--king{% endif %}"></div>
-                      {% endif %}
-                  </td>
-                {% endfor %}
-            </tr>
-        {% endfor %}
-    </table>
+    {% include '_gameboard.html' %}
 {% endblock %}

@@ -22,14 +22,17 @@ body {
     background-color: #181818;
     width: 75px;
     height: 75px;
+    cursor: pointer;
 }
 
 .board tr:nth-child(odd) td:nth-child(odd) {
     background-color: white;
+    cursor: initial;
 }
 
 .board tr:nth-child(even) td:nth-child(even) {
     background-color: white;
+    cursor: initial;
 }
 
 .board__piece {
@@ -43,7 +46,7 @@ body {
 }
 
 .board__piece:hover {
-    cursor: all-scroll;
+    cursor: pointer;
 }
 
 .board__piece--dark {
