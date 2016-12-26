@@ -1,20 +1,23 @@
 from .piece import *
 
-WHITE_SQUARE = 'WHITE_SQUARE'
-BLACK_SQUARE = 'BLACK_SQUARE'
-
 class Gameboard:
     def __init__(self, board):
         self.board = board
 
     def move(self, current_position, destination):
-        piece = self.board[current_position['y']][current_position['x']]
-        destination_is_black_square = (destination['y'] % 2 == 0 and destination['x'] % 2 == 1) or (destination['y'] % 2 == 1 and destination['x'] % 2 == 0)
-        moving_down = current_position['y'] < destination['y']
-        moving_up = current_position['y'] > destination['y']
+        cur_x = current_position['x']
+        cur_y = current_position['y']
+        dst_x = destination['x']
+        dst_y = destination['y']
 
-        if destination_is_black_square and ((piece.color == COLOR_DARK and moving_down) or (piece.color == COLOR_LIGHT and moving_up)):
-            self.board[current_position['y']][current_position['x']], self.board[destination['y']][destination['x']] = self.board[destination['y']][destination['x']], self.board[current_position['y']][current_position['x']]
+        piece = self.board[cur_y][cur_x]
+        dst = self.board[dst_y][dst_x]
+        dst_is_black_square = (dst_y % 2 == 0 and dst_x % 2 == 1) or (dst_y % 2 == 1 and dst_x % 2 == 0)
+        moving_down = cur_y < dst_y
+        moving_up = cur_y > dst_y
+
+        if dst_is_black_square and type(dst) not in (LightPiece, DarkPiece) and ((piece.color == COLOR_DARK and moving_down) or (piece.color == COLOR_LIGHT and moving_up)):
+            self.board[cur_y][cur_x], self.board[dst_y][dst_x] = self.board[dst_y][dst_x], self.board[cur_y][cur_x]
             return True
         else:
             return False
