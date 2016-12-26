@@ -1,4 +1,15 @@
+import pytest
 from checkers.game import *
+
+def test_cannot_init_board_with_piece_on_white_square():
+    piece = DarkPiece()
+    board = [
+        [piece, None],
+        [None, None],
+    ]
+    with pytest.raises(ValueError) as excinfo:
+        Gameboard(board)
+    assert 'cannot set piece on white square' in str(excinfo.value)
 
 def test_cannot_move_piece_to_white_square():
     piece = DarkPiece()
