@@ -5,8 +5,9 @@ $(document).ready(function () {
 function bind_events() {
   var current_position = undefined;
   var destination = undefined;
+  var $black_squares = $('tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd)');
 
-  $('td').click(function () {
+  $black_squares.click(function () {
     if ($(this).find('.board__piece').length) {
       current_position = {
         x: $(this).data('x'),
