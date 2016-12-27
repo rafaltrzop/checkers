@@ -38,11 +38,9 @@ class Gameboard:
 
         piece = self.board[cur_y][cur_x]
         dst = self.board[dst_y][dst_x]
-        dst_is_legal_square = self.__is_legal_square(dst_x, dst_y)
-        moving_down = cur_y < dst_y
-        moving_up = cur_y > dst_y
+        dst_is_legal_move = self.__is_legal_move(current_position, destination)
 
-        if dst_is_legal_square and type(dst) not in (LightPiece, DarkPiece) and ((piece.color == COLOR_DARK and moving_down) or (piece.color == COLOR_LIGHT and moving_up)):
+        if dst_is_legal_move and type(dst) not in (LightPiece, DarkPiece):
             self.board[cur_y][cur_x], self.board[dst_y][dst_x] = self.board[dst_y][dst_x], self.board[cur_y][cur_x]
             return True
         else:
@@ -66,3 +64,27 @@ class Gameboard:
 
     def __is_legal_square(self, x, y):
         return (y % 2 == 0 and x % 2 == 1) or (y % 2 == 1 and x % 2 == 0)
+
+    def __is_legal_move(self, current_position, destination):
+        cur_x = current_position['x']
+        cur_y = current_position['y']
+        dst_x = destination['x']
+        dst_y = destination['y']
+
+        piece = self.board[cur_y][cur_x]
+        dst_is_white_square = (dst_y % 2 == 0 and dst_x % 2 == 0) or (dst_y % 2 == 1 and dst_x % 2 == 1)
+        if dst_is_white_square:
+            return False
+
+        piece = self.board[cur_y][cur_x]
+        if piece.king:
+            pass
+        elif dst_x in range(cur_x-1, cur_x+2):
+            if piece.color == COLOR_LIGHT:
+                if dst_y == cur_y - 1:
+                    return True
+            if piece.color == COLOR_DARK:
+                if dst_y == cur_y + 1:
+                    return True
+
+        return False
