@@ -27,12 +27,12 @@ body {
 
 .board tr:nth-child(odd) td:nth-child(odd) {
     background-color: white;
-    cursor: initial;
+    cursor: not-allowed;
 }
 
 .board tr:nth-child(even) td:nth-child(even) {
     background-color: white;
-    cursor: initial;
+    cursor: not-allowed;
 }
 
 .board__piece {

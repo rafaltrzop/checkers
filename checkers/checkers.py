@@ -14,7 +14,7 @@ def index():
 @app.route('/move', methods=['POST'])
 def move():
     if request.method == 'POST':
-        gameboard = Gameboard()
+        gameboard = Gameboard(__prepare_board(request))
 
         current_position = {
             'x': int(request.form['cur_x']),
@@ -28,3 +28,23 @@ def move():
 
         board = gameboard.board
         return render_template('_gameboard.html', board=board)
+
+def __prepare_board(request):
+    prepared_board = deepcopy(EMPTY_BOARD)
+    board_size = int(request.form['board_size'])
+
+    for i in range(board_size):
+        x = int(request.form['board['+str(i)+'][x]'])
+        y = int(request.form['board['+str(i)+'][y]'])
+        color = request.form['board['+str(i)+'][color]']
+        king = request.form['board['+str(i)+'][king]'] == 'true'
+
+        if color == 'DarkPiece':
+            prepared_piece = DarkPiece()
+        if color == 'LightPiece':
+            prepared_piece = LightPiece()
+        if king:
+            prepared_piece.become_king()
+        prepared_board[y][x] = prepared_piece
+
+    return prepared_board

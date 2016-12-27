@@ -12,6 +12,17 @@ DEFAULT_BOARD = [
     [LightPiece(), None, LightPiece(), None, LightPiece(), None, LightPiece(), None]
 ]
 
+EMPTY_BOARD = [
+    [None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None],
+]
+
 class Gameboard:
     def __init__(self, board=None):
         if board == None:
