@@ -93,7 +93,25 @@ class Gameboard:
             piece = self.board[cur_y][cur_x]
             if piece.king:
                 pass
-            elif dst_x in range(cur_x-1, cur_x+2):
+            elif dst_x == cur_x-2:
+                if piece.color == COLOR_LIGHT:
+                    if dst_y == cur_y - 2 and type(self.board[cur_y-1][cur_x-1]) is DarkPiece:
+                        self.board[cur_y-1][cur_x-1] = None
+                        return True
+                if piece.color == COLOR_DARK:
+                    if dst_y == cur_y + 2 and type(self.board[cur_y+1][cur_x-1]) is LightPiece:
+                        self.board[cur_y+1][cur_x-1] = None
+                        return True
+            elif dst_x == cur_x+2:
+                if piece.color == COLOR_LIGHT:
+                    if dst_y == cur_y - 2 and type(self.board[cur_y-1][cur_x+1]) is DarkPiece:
+                        self.board[cur_y-1][cur_x+1] = None
+                        return True
+                if piece.color == COLOR_DARK:
+                    if dst_y == cur_y + 2 and type(self.board[cur_y+1][cur_x+1]) is LightPiece:
+                        self.board[cur_y+1][cur_x+1] = None
+                        return True
+            elif dst_x in (cur_x-1, cur_x+1):
                 if piece.color == COLOR_LIGHT:
                     if dst_y == cur_y - 1:
                         return True

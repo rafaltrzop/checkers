@@ -137,3 +137,45 @@ def test_cannot_move_piece_outside_board():
     result = gameboard.move(current_position, destination)
     assert result == False
     assert gameboard.board == board
+
+def test_dark_piece_can_capture_light_piece():
+    dark_piece = DarkPiece()
+    light_piece = LightPiece()
+    board = [
+        [None, dark_piece, None, None],
+        [None, None, light_piece, None],
+        [None, None, None, None],
+        [None, None, None, None]
+    ]
+    gameboard = Gameboard(board)
+    current_position = {'x': 1, 'y': 0}
+    destination = {'x': 3, 'y': 2}
+    result = gameboard.move(current_position, destination)
+    assert result == True
+    assert gameboard.board == [
+        [None, None, None, None],
+        [None, None, None, None],
+        [None, None, None, dark_piece],
+        [None, None, None, None]
+    ]
+
+def test_light_piece_can_capture_dark_piece():
+    dark_piece = DarkPiece()
+    light_piece = LightPiece()
+    board = [
+        [None, None, None, None],
+        [None, None, None, None],
+        [None, dark_piece, None, None],
+        [light_piece, None, None, None]
+    ]
+    gameboard = Gameboard(board)
+    current_position = {'x': 0, 'y': 3}
+    destination = {'x': 2, 'y': 1}
+    result = gameboard.move(current_position, destination)
+    assert result == True
+    assert gameboard.board == [
+        [None, None, None, None],
+        [None, None, light_piece, None],
+        [None, None, None, None],
+        [None, None, None, None]
+    ]
