@@ -113,13 +113,27 @@ def test_cannot_move_dark_piece_onto_ligth_piece():
 def test_cannot_move_piece_further_than_one_square():
     piece = DarkPiece()
     board = [
-        [None, piece, None],
-        [None, None, None],
-        [None, None, None]
+        [None, piece, None, None],
+        [None, None, None, None],
+        [None, None, None, None],
+        [None, None, None, None]
     ]
     gameboard = Gameboard(board)
     current_position = {'x': 1, 'y': 0}
-    destination = {'x': 1, 'y': 2}
+    destination = {'x': 3, 'y': 2}
+    result = gameboard.move(current_position, destination)
+    assert result == False
+    assert gameboard.board == board
+
+def test_cannot_move_piece_outside_board():
+    piece = DarkPiece()
+    board = [
+        [None, piece],
+        [None, None],
+    ]
+    gameboard = Gameboard(board)
+    current_position = {'x': 1, 'y': 0}
+    destination = {'x': 2, 'y': -1}
     result = gameboard.move(current_position, destination)
     assert result == False
     assert gameboard.board == board

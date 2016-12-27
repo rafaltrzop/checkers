@@ -23,6 +23,22 @@ EMPTY_BOARD = [
     [None, None, None, None, None, None, None, None],
 ]
 
+dark_piece_king = DarkPiece()
+dark_piece_king.become_king()
+light_piece_king = LightPiece()
+light_piece_king.become_king()
+
+KINGS_BOARD = [
+    [None, dark_piece_king, None, dark_piece_king, None, dark_piece_king, None, dark_piece_king],
+    [dark_piece_king, None, dark_piece_king, None, dark_piece_king, None, dark_piece_king, None],
+    [None, dark_piece_king, None, dark_piece_king, None, dark_piece_king, None, dark_piece_king],
+    [None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None],
+    [light_piece_king, None, light_piece_king, None, light_piece_king, None, light_piece_king, None],
+    [None, light_piece_king, None, light_piece_king, None, light_piece_king, None, light_piece_king],
+    [light_piece_king, None, light_piece_king, None, light_piece_king, None, light_piece_king, None]
+]
+
 class Gameboard:
     def __init__(self, board=None):
         if board == None:
@@ -36,11 +52,9 @@ class Gameboard:
         dst_x = destination['x']
         dst_y = destination['y']
 
-        piece = self.board[cur_y][cur_x]
-        dst = self.board[dst_y][dst_x]
         dst_is_legal_move = self.__is_legal_move(current_position, destination)
 
-        if dst_is_legal_move and type(dst) not in (LightPiece, DarkPiece):
+        if dst_is_legal_move and type(self.board[dst_y][dst_x]) not in (LightPiece, DarkPiece):
             self.board[cur_y][cur_x], self.board[dst_y][dst_x] = self.board[dst_y][dst_x], self.board[cur_y][cur_x]
             return True
         else:
@@ -71,20 +85,26 @@ class Gameboard:
         dst_x = destination['x']
         dst_y = destination['y']
 
-        piece = self.board[cur_y][cur_x]
-        dst_is_white_square = (dst_y % 2 == 0 and dst_x % 2 == 0) or (dst_y % 2 == 1 and dst_x % 2 == 1)
-        if dst_is_white_square:
-            return False
+        if self.__is_move_within_bounds_of_board(dst_x, dst_y):
+            dst_is_white_square = (dst_y % 2 == 0 and dst_x % 2 == 0) or (dst_y % 2 == 1 and dst_x % 2 == 1)
+            if dst_is_white_square:
+                return False
 
-        piece = self.board[cur_y][cur_x]
-        if piece.king:
-            pass
-        elif dst_x in range(cur_x-1, cur_x+2):
-            if piece.color == COLOR_LIGHT:
-                if dst_y == cur_y - 1:
-                    return True
-            if piece.color == COLOR_DARK:
-                if dst_y == cur_y + 1:
-                    return True
+            piece = self.board[cur_y][cur_x]
+            if piece.king:
+                pass
+            elif dst_x in range(cur_x-1, cur_x+2):
+                if piece.color == COLOR_LIGHT:
+                    if dst_y == cur_y - 1:
+                        return True
+                if piece.color == COLOR_DARK:
+                    if dst_y == cur_y + 1:
+                        return True
 
         return False
+
+    def __is_move_within_bounds_of_board(self, dst_x, dst_y):
+        if dst_x in range(0, 8) and dst_y in range(0, 8):
+            return True
+        else:
+            return False
