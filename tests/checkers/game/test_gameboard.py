@@ -181,7 +181,28 @@ def test_light_piece_captures_dark_piece():
     ]
 
 def test_dark_piece_becomes_king():
-    pass
+    dark_piece = DarkPiece()
+    board = [
+        [None, dark_piece],
+        [None, None],
+    ]
+    gameboard = Gameboard(board)
+    current_position = {'x': 1, 'y': 0}
+    destination = {'x': 0, 'y': 1}
+    gameboard.move(current_position, destination)
+    assert dark_piece.king == True
+
+def test_light_piece_becomes_king():
+    light_piece = LightPiece()
+    board = [
+        [None, None],
+        [light_piece, None],
+    ]
+    gameboard = Gameboard(board)
+    current_position = {'x': 0, 'y': 1}
+    destination = {'x': 1, 'y': 0}
+    gameboard.move(current_position, destination)
+    assert light_piece.king == True
 
 def test_build_custom_size_board():
     board_size = 4
@@ -208,3 +229,110 @@ def test_build_custom_size_board():
     assert gameboard.board[3][1] == None
     assert type(gameboard.board[3][2]) is LightPiece
     assert gameboard.board[3][3] == None
+
+def test_king_can_jump_multiple_squares():
+    piece = DarkPiece()
+    piece.become_king()
+    board = [
+        [None, None, None, piece, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None]
+    ]
+    gameboard = Gameboard(board)
+
+    current_position = {'x': 3, 'y': 0}
+    destination = {'x': 0, 'y': 3}
+    gameboard.move(current_position, destination)
+    assert gameboard.board == [
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [piece, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None]
+    ]
+
+    current_position = destination
+    destination = {'x': 3, 'y': 6}
+    gameboard.move(current_position, destination)
+    assert gameboard.board == [
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, piece, None, None, None]
+    ]
+
+    current_position = destination
+    destination = {'x': 6, 'y': 3}
+    gameboard.move(current_position, destination)
+    assert gameboard.board == [
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, piece],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None]
+    ]
+
+    current_position = destination
+    destination = {'x': 3, 'y': 0}
+    gameboard.move(current_position, destination)
+    assert gameboard.board == [
+        [None, None, None, piece, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None],
+        [None, None, None, None, None, None, None]
+    ]
+
+def test_king_cannot_capture_piece_of_the_same_color():
+    piece1 = DarkPiece()
+    piece1.become_king()
+    piece2 = DarkPiece()
+    board = [
+        [None, piece1, None, None],
+        [None, None, piece2, None],
+        [None, None, None, None],
+        [None, None, None, None]
+    ]
+    gameboard = Gameboard(board)
+    current_position = {'x': 1, 'y': 0}
+    destination = {'x': 3, 'y': 2}
+    result = gameboard.move(current_position, destination)
+    assert result == False
+    assert gameboard.board == board
+
+def test_king_captures_opponent():
+    light_piece = LightPiece()
+    light_piece.become_king()
+    dark_piece = DarkPiece()
+    board = [
+        [None, light_piece, None, None, None],
+        [None, None, dark_piece, None, None],
+        [None, None, None, None, None],
+        [None, None, None, None, None],
+        [None, None, None, None, None]
+    ]
+    gameboard = Gameboard(board)
+    current_position = {'x': 1, 'y': 0}
+    destination = {'x': 4, 'y': 3}
+    result = gameboard.move(current_position, destination)
+    assert result == True
+    assert gameboard.board == [
+        [None, None, None, None, None],
+        [None, None, None, None, None],
+        [None, None, None, None, None],
+        [None, None, None, None, light_piece],
+        [None, None, None, None, None]
+    ]

@@ -1,21 +1,5 @@
 from .piece import *
 
-dark_piece_king = DarkPiece()
-dark_piece_king.become_king()
-light_piece_king = LightPiece()
-light_piece_king.become_king()
-
-KINGS_BOARD = [
-    [None, dark_piece_king, None, dark_piece_king, None, dark_piece_king, None, dark_piece_king],
-    [dark_piece_king, None, dark_piece_king, None, dark_piece_king, None, dark_piece_king, None],
-    [None, dark_piece_king, None, dark_piece_king, None, dark_piece_king, None, dark_piece_king],
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, None, None],
-    [light_piece_king, None, light_piece_king, None, light_piece_king, None, light_piece_king, None],
-    [None, light_piece_king, None, light_piece_king, None, light_piece_king, None, light_piece_king],
-    [light_piece_king, None, light_piece_king, None, light_piece_king, None, light_piece_king, None]
-]
-
 class Gameboard:
     @classmethod
     def build(self, size=8):
@@ -75,11 +59,15 @@ class Gameboard:
         cur_y = current_position['y']
         dst_x = destination['x']
         dst_y = destination['y']
-
         dst_is_legal_move = self.__is_legal_move(current_position, destination)
 
         if dst_is_legal_move and type(self.board[dst_y][dst_x]) not in (LightPiece, DarkPiece):
+            dst_is_last_row_of_board = dst_y in (0, self.size-1)
+            if dst_is_last_row_of_board:
+                self.board[cur_y][cur_x].become_king()
+
             self.board[cur_y][cur_x], self.board[dst_y][dst_x] = self.board[dst_y][dst_x], self.board[cur_y][cur_x]
+
             return True
         else:
             return False
@@ -115,8 +103,43 @@ class Gameboard:
                 return False
 
             piece = self.board[cur_y][cur_x]
-            if piece.king:
-                pass
+            jumping_on_diagonals = abs(dst_x - cur_x) == abs(dst_y - cur_y)
+            if piece.king and jumping_on_diagonals:
+                next_x = cur_x
+                next_y = cur_y
+                diagonal_pieces_count = 0
+                opponent_x = None
+                opponent_y = None
+                while True:
+                    if cur_x < dst_x:
+                        next_x += 1
+                    else:
+                        next_x -= 1
+
+                    if cur_y < dst_y:
+                        next_y += 1
+                    else:
+                        next_y -= 1
+
+                    next_piece = self.board[next_y][next_x]
+                    if type(next_piece) in (LightPiece, DarkPiece):
+                        diagonal_pieces_count += 1
+                        if diagonal_pieces_count > 1:
+                            return False
+
+                        if piece.color == next_piece.color:
+                            return False
+                        else:
+                            opponent_x = next_x
+                            opponent_y = next_y
+
+                    if next_x == dst_x and next_y == dst_y:
+                        break
+
+                if opponent_x and opponent_y:
+                    self.board[opponent_y][opponent_x] = None
+
+                return True
             elif dst_x == cur_x-2:
                 if piece.color == COLOR_LIGHT:
                     if dst_y == cur_y - 2 and type(self.board[cur_y-1][cur_x-1]) is DarkPiece:
