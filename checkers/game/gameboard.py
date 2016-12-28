@@ -42,9 +42,11 @@ KINGS_BOARD = [
 class Gameboard:
     def __init__(self, board=None):
         if board == None:
-            board = deepcopy(DEFAULT_BOARD)
-
-        self.board = self.__ensure_valid_board(board)
+            self.board = self.__generate_board(8)
+            self.size = len(self.board)
+        else:
+            self.board = self.__ensure_valid_board(board)
+            self.size = len(board)
 
     def move(self, current_position, destination):
         cur_x = current_position['x']
@@ -59,6 +61,47 @@ class Gameboard:
             return True
         else:
             return False
+
+    def __generate_board(self, size):
+        board = []
+        board_top = []
+        board_bottom = []
+
+        if size % 2 == 0:
+            gap = 2
+        else:
+            gap = 3
+
+        for i in range(int((size-2)/2)):
+            board_top.append([None]*size)
+            board_bottom.append([None]*size)
+
+        for row_index, row in enumerate(board_top):
+            for square_index, square in enumerate(row):
+                if row_index % 2 == 0 and square_index % 2 == 1:
+                    board_top[row_index][square_index] = DarkPiece()
+                if row_index % 2 == 1 and square_index % 2 == 0:
+                    board_top[row_index][square_index] = DarkPiece()
+
+        for row_index, row in enumerate(board_bottom):
+            for square_index, square in enumerate(row):
+                if (int((size / 2)) + gap) % 2 == 1:
+                    if row_index % 2 == 0 and square_index % 2 == 1:
+                        board_bottom[row_index][square_index] = LightPiece()
+                    if row_index % 2 == 1 and square_index % 2 == 0:
+                        board_bottom[row_index][square_index] = LightPiece()
+                else:
+                    if row_index % 2 == 0 and square_index % 2 == 0:
+                        board_bottom[row_index][square_index] = LightPiece()
+                    if row_index % 2 == 1 and square_index % 2 == 1:
+                        board_bottom[row_index][square_index] = LightPiece()
+
+        board.extend(board_top)
+        for i in range(gap):
+            board.append([None]*size)
+        board.extend(board_bottom)
+
+        return board
 
     def __ensure_valid_board(self, board):
         y = 0
@@ -122,7 +165,7 @@ class Gameboard:
         return False
 
     def __is_move_within_bounds_of_board(self, dst_x, dst_y):
-        if dst_x in range(0, 8) and dst_y in range(0, 8):
+        if dst_x in range(self.size) and dst_y in range(self.size):
             return True
         else:
             return False
