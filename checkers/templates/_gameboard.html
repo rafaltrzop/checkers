@@ -3,7 +3,7 @@
         {% set outer_loop = loop %}
         <tr>
             {% for piece in row %}
-              <td data-x="{{ loop.index0 }}" data-y="{{ outer_loop.index0 }}">
+              <td class="board__square" data-x="{{ loop.index0 }}" data-y="{{ outer_loop.index0 }}">
                   {% if piece %}
                       <div class="board__piece board__piece--{{ piece.color }} {% if piece.king %}board__piece--king{% endif %}"></div>
                   {% endif %}

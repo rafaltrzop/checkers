@@ -5,10 +5,14 @@ $(document).ready(function () {
 function bind_events() {
   var current_position = undefined;
   var destination = undefined;
-  var $black_squares = $('tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd)');
 
+  var $black_squares = $('tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd)');
   $black_squares.click(function () {
-    if ($(this).find('.board__piece').length) {
+    var found_piece_on_the_square = $(this).find('.board__piece').length;
+    if (found_piece_on_the_square) {
+      $('.board__square').removeClass('board__square--selected');
+      $(this).addClass('board__square--selected');
+
       current_position = {
         x: $(this).data('x'),
         y: $(this).data('y')
@@ -51,7 +55,6 @@ function pieces_on_board() {
     if ($(this).hasClass('board__piece--dark')) {
       color = 'DarkPiece';
     }
-
     if ($(this).hasClass('board__piece--light')) {
       color = 'LightPiece';
     }

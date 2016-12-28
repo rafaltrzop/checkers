@@ -18,21 +18,27 @@ body {
     border-radius: 5px;
 }
 
-.board td {
-    background-color: #181818;
+.board__square {
+    background-color: #fff;
     width: 9vmin;
     height: 9vmin;
+    cursor: not-allowed;
+}
+
+.board tr:nth-child(odd) td:nth-child(even) {
+    background-color: #181818;
     cursor: pointer;
 }
 
-.board tr:nth-child(odd) td:nth-child(odd) {
-    background-color: white;
-    cursor: not-allowed;
+.board tr:nth-child(even) td:nth-child(odd) {
+    background-color: #181818;
+    cursor: pointer;
 }
 
-.board tr:nth-child(even) td:nth-child(even) {
-    background-color: white;
-    cursor: not-allowed;
+.board tr:nth-child(odd) td:nth-child(even):hover,
+.board tr:nth-child(even) td:nth-child(odd):hover,
+.board__square--selected {
+  outline: .4vmin solid crimson;
 }
 
 .board__piece {
