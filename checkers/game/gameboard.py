@@ -76,25 +76,25 @@ class Gameboard:
             board_top.append([None]*size)
             board_bottom.append([None]*size)
 
-        for row_index, row in enumerate(board_top):
-            for square_index, square in enumerate(row):
-                if row_index % 2 == 0 and square_index % 2 == 1:
-                    board_top[row_index][square_index] = DarkPiece()
-                if row_index % 2 == 1 and square_index % 2 == 0:
-                    board_top[row_index][square_index] = DarkPiece()
+        for y, row in enumerate(board_top):
+            for x, square in enumerate(row):
+                if y % 2 == 0 and x % 2 == 1:
+                    board_top[y][x] = DarkPiece()
+                if y % 2 == 1 and x % 2 == 0:
+                    board_top[y][x] = DarkPiece()
 
-        for row_index, row in enumerate(board_bottom):
-            for square_index, square in enumerate(row):
+        for y, row in enumerate(board_bottom):
+            for x, square in enumerate(row):
                 if (int((size / 2)) + gap) % 2 == 1:
-                    if row_index % 2 == 0 and square_index % 2 == 1:
-                        board_bottom[row_index][square_index] = LightPiece()
-                    if row_index % 2 == 1 and square_index % 2 == 0:
-                        board_bottom[row_index][square_index] = LightPiece()
+                    if y % 2 == 0 and x % 2 == 1:
+                        board_bottom[y][x] = LightPiece()
+                    if y % 2 == 1 and x % 2 == 0:
+                        board_bottom[y][x] = LightPiece()
                 else:
-                    if row_index % 2 == 0 and square_index % 2 == 0:
-                        board_bottom[row_index][square_index] = LightPiece()
-                    if row_index % 2 == 1 and square_index % 2 == 1:
-                        board_bottom[row_index][square_index] = LightPiece()
+                    if y % 2 == 0 and x % 2 == 0:
+                        board_bottom[y][x] = LightPiece()
+                    if y % 2 == 1 and x % 2 == 1:
+                        board_bottom[y][x] = LightPiece()
 
         board.extend(board_top)
         for i in range(gap):
