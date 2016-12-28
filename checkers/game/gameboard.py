@@ -17,28 +17,12 @@ KINGS_BOARD = [
 ]
 
 class Gameboard:
-    def __init__(self, board=None, size=8):
-        if board == None:
-            self.board = self.__generate_board(size)
-            self.size = size
-        else:
-            self.board = self.__ensure_valid_board(board)
-            self.size = len(board)
+    @classmethod
+    def build(self, size=8):
+        board = self.__generate_board(size)
+        return Gameboard(board)
 
-    def move(self, current_position, destination):
-        cur_x = current_position['x']
-        cur_y = current_position['y']
-        dst_x = destination['x']
-        dst_y = destination['y']
-
-        dst_is_legal_move = self.__is_legal_move(current_position, destination)
-
-        if dst_is_legal_move and type(self.board[dst_y][dst_x]) not in (LightPiece, DarkPiece):
-            self.board[cur_y][cur_x], self.board[dst_y][dst_x] = self.board[dst_y][dst_x], self.board[cur_y][cur_x]
-            return True
-        else:
-            return False
-
+    @classmethod
     def __generate_board(self, size):
         board = []
         board_top = []
@@ -81,6 +65,24 @@ class Gameboard:
         board.extend(board_bottom)
 
         return board
+
+    def __init__(self, board):
+        self.board = self.__ensure_valid_board(board)
+        self.size = len(board)
+
+    def move(self, current_position, destination):
+        cur_x = current_position['x']
+        cur_y = current_position['y']
+        dst_x = destination['x']
+        dst_y = destination['y']
+
+        dst_is_legal_move = self.__is_legal_move(current_position, destination)
+
+        if dst_is_legal_move and type(self.board[dst_y][dst_x]) not in (LightPiece, DarkPiece):
+            self.board[cur_y][cur_x], self.board[dst_y][dst_x] = self.board[dst_y][dst_x], self.board[cur_y][cur_x]
+            return True
+        else:
+            return False
 
     def __ensure_valid_board(self, board):
         y = 0

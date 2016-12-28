@@ -6,8 +6,9 @@ from .game import *
 app = Flask(__name__)
 
 @app.route('/')
-def index():
-    gameboard = Gameboard()
+@app.route('/board/<int:board_size>')
+def index(board_size=8):
+    gameboard = Gameboard.build(board_size)
     board = gameboard.board
     return render_template('index.html', board=board)
 

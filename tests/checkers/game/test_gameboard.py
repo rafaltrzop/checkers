@@ -138,7 +138,7 @@ def test_cannot_move_piece_outside_board():
     assert result == False
     assert gameboard.board == board
 
-def test_dark_piece_can_capture_light_piece():
+def test_dark_piece_captures_light_piece():
     dark_piece = DarkPiece()
     light_piece = LightPiece()
     board = [
@@ -159,7 +159,7 @@ def test_dark_piece_can_capture_light_piece():
         [None, None, None, None]
     ]
 
-def test_light_piece_can_capture_dark_piece():
+def test_light_piece_captures_dark_piece():
     dark_piece = DarkPiece()
     light_piece = LightPiece()
     board = [
@@ -179,3 +179,32 @@ def test_light_piece_can_capture_dark_piece():
         [None, None, None, None],
         [None, None, None, None]
     ]
+
+def test_dark_piece_becomes_king():
+    pass
+
+def test_build_custom_size_board():
+    board_size = 4
+    gameboard = Gameboard.build(board_size)
+
+    assert len(gameboard.board) == board_size
+
+    assert gameboard.board[0][0] == None
+    assert type(gameboard.board[0][1]) is DarkPiece
+    assert gameboard.board[0][2] == None
+    assert type(gameboard.board[0][3]) is DarkPiece
+
+    assert gameboard.board[1][0] == None
+    assert gameboard.board[1][1] == None
+    assert gameboard.board[1][2] == None
+    assert gameboard.board[1][3] == None
+
+    assert gameboard.board[2][0] == None
+    assert gameboard.board[2][1] == None
+    assert gameboard.board[2][2] == None
+    assert gameboard.board[2][3] == None
+
+    assert type(gameboard.board[3][0]) is LightPiece
+    assert gameboard.board[3][1] == None
+    assert type(gameboard.board[3][2]) is LightPiece
+    assert gameboard.board[3][3] == None

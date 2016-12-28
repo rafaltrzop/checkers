@@ -13,15 +13,15 @@ body {
 }
 
 .board {
-    border: 2vmin solid #181818;
+    border: 1.5vmin solid #181818;
     border-spacing: 0;
     border-radius: 5px;
 }
 
 .board td {
     background-color: #181818;
-    width: 10vmin;
-    height: 10vmin;
+    width: 9vmin;
+    height: 9vmin;
     cursor: pointer;
 }
 
