@@ -22,15 +22,16 @@ function bind_events() {
       if (current_position === undefined) {
         alert('Choose a piece!')
       } else {
-        var board = board_state();
+        var pieces = pieces_on_board();
         $.post('/move',
           {
             cur_x: current_position.x,
             cur_y: current_position.y,
             dst_x: destination.x,
             dst_y: destination.y,
-            board: board,
-            board_size: board.length
+            pieces: pieces,
+            pieces_count: pieces.length,
+            board_size: $('tr').length
           },
           function (data, status) {
             $('body').html(data);
@@ -42,7 +43,7 @@ function bind_events() {
   });
 }
 
-function board_state() {
+function pieces_on_board() {
   var board_state = [];
 
   $('.board__piece').each(function () {

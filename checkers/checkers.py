@@ -30,14 +30,15 @@ def move():
         return render_template('_gameboard.html', board=board)
 
 def __prepare_board(request):
-    prepared_board = deepcopy(EMPTY_BOARD)
     board_size = int(request.form['board_size'])
+    pieces_count = int(request.form['pieces_count'])
+    prepared_board = __generate_empty_board(board_size)
 
-    for i in range(board_size):
-        x = int(request.form['board['+str(i)+'][x]'])
-        y = int(request.form['board['+str(i)+'][y]'])
-        color = request.form['board['+str(i)+'][color]']
-        king = request.form['board['+str(i)+'][king]'] == 'true'
+    for i in range(pieces_count):
+        x = int(request.form['pieces['+str(i)+'][x]'])
+        y = int(request.form['pieces['+str(i)+'][y]'])
+        color = request.form['pieces['+str(i)+'][color]']
+        king = request.form['pieces['+str(i)+'][king]'] == 'true'
 
         if color == 'DarkPiece':
             prepared_piece = DarkPiece()
@@ -45,6 +46,15 @@ def __prepare_board(request):
             prepared_piece = LightPiece()
         if king:
             prepared_piece.become_king()
+
         prepared_board[y][x] = prepared_piece
 
     return prepared_board
+
+def __generate_empty_board(size):
+    board = []
+
+    for i in range(size):
+        board.append([None]*size)
+
+    return board

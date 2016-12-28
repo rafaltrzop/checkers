@@ -1,27 +1,4 @@
 from .piece import *
-from copy import deepcopy
-
-DEFAULT_BOARD = [
-    [None, DarkPiece(), None, DarkPiece(), None, DarkPiece(), None, DarkPiece()],
-    [DarkPiece(), None, DarkPiece(), None, DarkPiece(), None, DarkPiece(), None],
-    [None, DarkPiece(), None, DarkPiece(), None, DarkPiece(), None, DarkPiece()],
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, None, None],
-    [LightPiece(), None, LightPiece(), None, LightPiece(), None, LightPiece(), None],
-    [None, LightPiece(), None, LightPiece(), None, LightPiece(), None, LightPiece()],
-    [LightPiece(), None, LightPiece(), None, LightPiece(), None, LightPiece(), None]
-]
-
-EMPTY_BOARD = [
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, None, None],
-]
 
 dark_piece_king = DarkPiece()
 dark_piece_king.become_king()
@@ -40,10 +17,10 @@ KINGS_BOARD = [
 ]
 
 class Gameboard:
-    def __init__(self, board=None):
+    def __init__(self, board=None, size=8):
         if board == None:
-            self.board = self.__generate_board(8)
-            self.size = len(self.board)
+            self.board = self.__generate_board(size)
+            self.size = size
         else:
             self.board = self.__ensure_valid_board(board)
             self.size = len(board)
@@ -67,12 +44,14 @@ class Gameboard:
         board_top = []
         board_bottom = []
 
-        if size % 2 == 0:
+        if size == 1:
+            gap = 1
+        elif size % 2 == 0:
             gap = 2
         else:
             gap = 3
 
-        for i in range(int((size-2)/2)):
+        for i in range((size-gap)//2):
             board_top.append([None]*size)
             board_bottom.append([None]*size)
 
