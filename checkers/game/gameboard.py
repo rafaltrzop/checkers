@@ -32,7 +32,7 @@ class Gameboard:
 
         for y, row in enumerate(board_bottom):
             for x, square in enumerate(row):
-                if (int((size / 2)) + gap) % 2 == 1:
+                if ((size // 2) + gap) % 2 == 1:
                     if y % 2 == 0 and x % 2 == 1:
                         board_bottom[y][x] = LightPiece()
                     if y % 2 == 1 and x % 2 == 0:
