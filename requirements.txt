@@ -1,4 +1,3 @@
--e git+git@github.com:rafaltrzop/checkers.git@0b2bb49b39230340fbce42fccbe2cf283abc3d12#egg=checkers
 click==6.6
 Flask==0.12
 itsdangerous==0.24
