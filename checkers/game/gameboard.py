@@ -66,18 +66,17 @@ class Gameboard:
             return False
 
     def __ensure_valid_board(self, board):
-        y = 0
-        x = 0
+        board_size = len(board)
 
-        for row in board:
-            for square in row:
+        for y, row in enumerate(board):
+            if len(row) != board_size:
+                raise ValueError('cannot use non square board')
+
+            for x, square in enumerate(row):
                 if type(square) in (LightPiece, DarkPiece):
                     legal_square = self.__is_legal_square(x, y)
                     if not legal_square:
                         raise ValueError('cannot set piece on white square')
-                x += 1
-            y += 1
-            x = 0
 
         return board
 
