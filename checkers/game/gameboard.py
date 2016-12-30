@@ -8,8 +8,8 @@ class Gameboard:
 
     @classmethod
     def __generate_board(self, size):
-        board = []
         board_top = []
+        board_gap = []
         board_bottom = []
 
         if size == 1:
@@ -25,29 +25,22 @@ class Gameboard:
 
         for y, row in enumerate(board_top):
             for x, square in enumerate(row):
-                if y % 2 == 0 and x % 2 == 1:
+                if (y % 2 == 0 and x % 2 == 1) or (y % 2 == 1 and x % 2 == 0):
                     board_top[y][x] = DarkPiece()
-                if y % 2 == 1 and x % 2 == 0:
-                    board_top[y][x] = DarkPiece()
+
+        for i in range(gap):
+            board_gap.append([None]*size)
 
         for y, row in enumerate(board_bottom):
             for x, square in enumerate(row):
                 if ((size // 2) + gap) % 2 == 1:
-                    if y % 2 == 0 and x % 2 == 1:
-                        board_bottom[y][x] = LightPiece()
-                    if y % 2 == 1 and x % 2 == 0:
+                    if (y % 2 == 0 and x % 2 == 1) or (y % 2 == 1 and x % 2 == 0):
                         board_bottom[y][x] = LightPiece()
                 else:
-                    if y % 2 == 0 and x % 2 == 0:
-                        board_bottom[y][x] = LightPiece()
-                    if y % 2 == 1 and x % 2 == 1:
+                    if (y % 2 == 0 and x % 2 == 0) or (y % 2 == 1 and x % 2 == 1):
                         board_bottom[y][x] = LightPiece()
 
-        board.extend(board_top)
-        for i in range(gap):
-            board.append([None]*size)
-        board.extend(board_bottom)
-
+        board = board_top + board_gap + board_bottom
         return board
 
     def __init__(self, board):
