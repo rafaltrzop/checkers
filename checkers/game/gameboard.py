@@ -133,30 +133,24 @@ class Gameboard:
 
                 return True
             elif dst_x == cur_x-2:
-                if piece.color == COLOR_LIGHT:
-                    if dst_y == cur_y - 2 and type(self.board[cur_y-1][cur_x-1]) is DarkPiece:
-                        self.board[cur_y-1][cur_x-1] = None
-                        return True
-                if piece.color == COLOR_DARK:
-                    if dst_y == cur_y + 2 and type(self.board[cur_y+1][cur_x-1]) is LightPiece:
-                        self.board[cur_y+1][cur_x-1] = None
-                        return True
+                if piece.color == COLOR_LIGHT and dst_y == cur_y - 2 and type(self.board[cur_y-1][cur_x-1]) is DarkPiece:
+                    self.board[cur_y-1][cur_x-1] = None
+                    return True
+                if piece.color == COLOR_DARK and dst_y == cur_y + 2 and type(self.board[cur_y+1][cur_x-1]) is LightPiece:
+                    self.board[cur_y+1][cur_x-1] = None
+                    return True
             elif dst_x == cur_x+2:
-                if piece.color == COLOR_LIGHT:
-                    if dst_y == cur_y - 2 and type(self.board[cur_y-1][cur_x+1]) is DarkPiece:
-                        self.board[cur_y-1][cur_x+1] = None
-                        return True
-                if piece.color == COLOR_DARK:
-                    if dst_y == cur_y + 2 and type(self.board[cur_y+1][cur_x+1]) is LightPiece:
-                        self.board[cur_y+1][cur_x+1] = None
-                        return True
+                if piece.color == COLOR_LIGHT and dst_y == cur_y - 2 and type(self.board[cur_y-1][cur_x+1]) is DarkPiece:
+                    self.board[cur_y-1][cur_x+1] = None
+                    return True
+                if piece.color == COLOR_DARK and dst_y == cur_y + 2 and type(self.board[cur_y+1][cur_x+1]) is LightPiece:
+                    self.board[cur_y+1][cur_x+1] = None
+                    return True
             elif dst_x in (cur_x-1, cur_x+1):
-                if piece.color == COLOR_LIGHT:
-                    if dst_y == cur_y - 1:
-                        return True
-                if piece.color == COLOR_DARK:
-                    if dst_y == cur_y + 1:
-                        return True
+                if piece.color == COLOR_LIGHT and dst_y == cur_y - 1:
+                    return True
+                if piece.color == COLOR_DARK and dst_y == cur_y + 1:
+                    return True
 
         return False
 
