@@ -1,1 +1,1 @@
-web: python run.py --production
+web: python run.py --heroku
