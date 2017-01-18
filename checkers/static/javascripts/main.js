@@ -41,7 +41,7 @@ function bind_events() {
             $('body').html(data);
             bind_events();
           }
-        )
+        );
       }
     }
   });
