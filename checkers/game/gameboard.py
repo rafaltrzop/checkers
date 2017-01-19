@@ -3,11 +3,15 @@ from .piece import *
 class Gameboard:
     @classmethod
     def build(self, size=8):
+        """Builds custom size board."""
+
         board = self.__generate_board(size)
         return Gameboard(board)
 
     @classmethod
     def __generate_board(self, size):
+        """Generates inital state of the board with pieces."""
+
         board_top = []
         board_gap = []
         board_bottom = []
@@ -48,6 +52,8 @@ class Gameboard:
         self.size = len(board)
 
     def move(self, current_position, destination):
+        """Moves piece from current position to destination on the board."""
+
         cur_x = current_position['x']
         cur_y = current_position['y']
         dst_x = destination['x']
@@ -66,6 +72,8 @@ class Gameboard:
             return False
 
     def __ensure_valid_board(self, board):
+        """Ensures that board is a square and pieces are set on the black squares."""
+
         board_size = len(board)
 
         for y, row in enumerate(board):
@@ -81,9 +89,13 @@ class Gameboard:
         return board
 
     def __is_legal_square(self, x, y):
+        """Checks if given square is black."""
+
         return (y % 2 == 0 and x % 2 == 1) or (y % 2 == 1 and x % 2 == 0)
 
     def __is_legal_move(self, current_position, destination):
+        """Checks if given move is possible and then performs it."""
+
         cur_x = current_position['x']
         cur_y = current_position['y']
         dst_x = destination['x']
@@ -155,6 +167,8 @@ class Gameboard:
         return False
 
     def __is_move_within_bounds_of_board(self, dst_x, dst_y):
+        """Checks if given move is within bounds of the board."""
+        
         if dst_x in range(self.size) and dst_y in range(self.size):
             return True
         else:

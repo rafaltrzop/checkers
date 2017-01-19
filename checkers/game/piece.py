@@ -7,6 +7,8 @@ class Piece:
         self.king = False
 
     def become_king(self):
+        """Sets king flag to true."""
+        
         self.king = True
 
 class LightPiece(Piece):
