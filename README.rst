@@ -12,7 +12,7 @@ Game features
 Demo
 ----
 
-You can see it in action right here: `6x6 <https://checkers-game.herokuapp.com/board/6>`_, `8x8 <https://checkers-game.herokuapp.com/>`_, `10x10 <https://checkers-game.herokuapp.com/board/10>`_.
+`You can see it in action right here. <https://checkers-game.herokuapp.com>`_
 
 Development
 -----------
