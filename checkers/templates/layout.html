@@ -4,12 +4,13 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}{% endblock %}</title>
+        <title>{% block title %}Checkers{% endblock %}</title>
         <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/normalize.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/main.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=Norican" rel="stylesheet">
     </head>
-    <body>
+    <body class="{% block body_class %}{% endblock %}">
         {% block body %}{% endblock %}
         <script src="{{ url_for('static', filename='javascripts/jquery-3.1.1.min.js') }}"></script>
         <script src="{{ url_for('static', filename='javascripts/main.js') }}"></script>
