@@ -1,3 +1,8 @@
+<script type="text/javascript">
+var GameConfig = {
+  last_move: '{{ last_move }}'
+}
+</script>
 <table class="board">
     {% for row in board %}
         {% set outer_loop = loop %}
@@ -5,7 +10,7 @@
             {% for piece in row %}
               <td class="board__square" data-x="{{ loop.index0 }}" data-y="{{ outer_loop.index0 }}">
                   {% if piece %}
-                      <div class="board__piece board__piece--{{ piece.color }} {% if piece.king %}board__piece--king{% endif %}"></div>
+                      <div class="board__piece board__piece--{{ piece.color }} {% if piece.king %}board__piece--king{% endif %}" data-color="{{ piece.color }}"></div>
                   {% endif %}
               </td>
             {% endfor %}

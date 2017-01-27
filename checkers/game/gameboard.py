@@ -47,9 +47,10 @@ class Gameboard:
         board = board_top + board_gap + board_bottom
         return board
 
-    def __init__(self, board):
+    def __init__(self, board, last_move=None):
         self.board = self.__ensure_valid_board(board)
         self.size = len(board)
+        self.last_move = last_move
 
     def move(self, current_position, destination):
         """Moves piece from current position to destination on the board."""
@@ -58,6 +59,8 @@ class Gameboard:
         cur_y = current_position['y']
         dst_x = destination['x']
         dst_y = destination['y']
+        if self.last_move == self.board[cur_y][cur_x].color:
+            return False
         dst_is_legal_move = self.__is_legal_move(current_position, destination)
 
         if dst_is_legal_move and type(self.board[dst_y][dst_x]) not in (LightPiece, DarkPiece):
@@ -65,6 +68,7 @@ class Gameboard:
             if dst_is_last_row_of_board:
                 self.board[cur_y][cur_x].become_king()
 
+            self.last_move = self.board[cur_y][cur_x].color
             self.board[cur_y][cur_x], self.board[dst_y][dst_x] = self.board[dst_y][dst_x], self.board[cur_y][cur_x]
 
             return True
@@ -168,7 +172,7 @@ class Gameboard:
 
     def __is_move_within_bounds_of_board(self, dst_x, dst_y):
         """Checks if given move is within bounds of the board."""
-        
+
         if dst_x in range(self.size) and dst_y in range(self.size):
             return True
         else:

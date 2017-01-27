@@ -257,7 +257,7 @@ def test_king_can_jump_multiple_squares():
     current_position = {'x': 3, 'y': 0}
     destination = {'x': 0, 'y': 3}
     gameboard.move(current_position, destination)
-    assert gameboard.board == [
+    board = [
         [None, None, None, None, None, None, None],
         [None, None, None, None, None, None, None],
         [None, None, None, None, None, None, None],
@@ -266,11 +266,13 @@ def test_king_can_jump_multiple_squares():
         [None, None, None, None, None, None, None],
         [None, None, None, None, None, None, None]
     ]
+    assert gameboard.board == board
 
     current_position = destination
     destination = {'x': 3, 'y': 6}
+    gameboard = Gameboard(board)
     gameboard.move(current_position, destination)
-    assert gameboard.board == [
+    board = [
         [None, None, None, None, None, None, None],
         [None, None, None, None, None, None, None],
         [None, None, None, None, None, None, None],
@@ -279,11 +281,13 @@ def test_king_can_jump_multiple_squares():
         [None, None, None, None, None, None, None],
         [None, None, None, piece, None, None, None]
     ]
+    assert gameboard.board == board
 
     current_position = destination
     destination = {'x': 6, 'y': 3}
+    gameboard = Gameboard(board)
     gameboard.move(current_position, destination)
-    assert gameboard.board == [
+    board = [
         [None, None, None, None, None, None, None],
         [None, None, None, None, None, None, None],
         [None, None, None, None, None, None, None],
@@ -292,11 +296,13 @@ def test_king_can_jump_multiple_squares():
         [None, None, None, None, None, None, None],
         [None, None, None, None, None, None, None]
     ]
+    assert gameboard.board == board
 
     current_position = destination
     destination = {'x': 3, 'y': 0}
+    gameboard = Gameboard(board)
     gameboard.move(current_position, destination)
-    assert gameboard.board == [
+    board = [
         [None, None, None, piece, None, None, None],
         [None, None, None, None, None, None, None],
         [None, None, None, None, None, None, None],
@@ -305,6 +311,7 @@ def test_king_can_jump_multiple_squares():
         [None, None, None, None, None, None, None],
         [None, None, None, None, None, None, None]
     ]
+    assert gameboard.board == board
 
 def test_king_cannot_capture_piece_of_the_same_color():
     piece1 = DarkPiece()
@@ -346,3 +353,35 @@ def test_king_captures_opponent():
         [None, None, None, None, light_piece],
         [None, None, None, None, None]
     ]
+
+def test_piece_cannot_move_twice():
+        piece = DarkPiece()
+        board = [
+            [None, piece, None, None],
+            [None, None, None, None],
+            [None, None, None, None],
+            [None, None, None, None]
+        ]
+        gameboard = Gameboard(board)
+
+        current_position = {'x': 1, 'y': 0}
+        destination = {'x': 2, 'y': 1}
+        result = gameboard.move(current_position, destination)
+        assert result == True
+        assert gameboard.board == [
+            [None, None, None, None],
+            [None, None, piece, None],
+            [None, None, None, None],
+            [None, None, None, None]
+        ]
+
+        current_position = destination
+        destination = {'x': 1, 'y': 2}
+        result = gameboard.move(current_position, destination)
+        assert result == False
+        assert gameboard.board == [
+            [None, None, None, None],
+            [None, None, piece, None],
+            [None, None, None, None],
+            [None, None, None, None]
+        ]

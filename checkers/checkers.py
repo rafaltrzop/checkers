@@ -15,7 +15,7 @@ def index(board_size=8):
 @app.route('/move', methods=['POST'])
 def move():
     if request.method == 'POST':
-        gameboard = Gameboard(__prepare_board(request))
+        gameboard = Gameboard(__prepare_board(request), request.form['last_move'])
 
         current_position = {
             'x': int(request.form['cur_x']),
@@ -28,7 +28,8 @@ def move():
         gameboard.move(current_position, destination)
 
         board = gameboard.board
-        return render_template('_gameboard.html', board=board)
+        last_move = gameboard.last_move
+        return render_template('_gameboard.html', board=board, last_move=last_move)
 
 def __prepare_board(request):
     board_size = int(request.form['board_size'])

@@ -35,7 +35,8 @@ function bind_events() {
             dst_y: destination.y,
             pieces: pieces,
             pieces_count: pieces.length,
-            board_size: $('tr').length
+            board_size: $('tr').length,
+            last_move: GameConfig.last_move
           },
           function (data, status) {
             $('body').html(data);
