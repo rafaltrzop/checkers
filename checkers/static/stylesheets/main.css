@@ -45,10 +45,12 @@ body {
 .button {
   text-decoration: none;
   box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 50px;
+  font-weight: 400;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
   width: 150px;
   height: 50px;
   border-radius: 25px;
@@ -59,18 +61,22 @@ body {
 .button:hover,
 .button:focus {
   outline: none;
-  color: #356300;
+  font-weight: 700;
   background-color: #fff;
 }
 
-.button:hover span,
-.button:focus span {
-  display: none;
+.button__text {
+  color: #fff;
+  transition: .3s;
 }
 
-.button:hover::before,
-.button:focus::before {
-  content: 'Play'
+.button__text-hover {
+  color: #356300;
+}
+
+.button:hover .button__text,
+.button:focus .button__text {
+  margin-top: -50px;
 }
 
 .board {
