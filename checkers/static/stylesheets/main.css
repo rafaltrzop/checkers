@@ -56,10 +56,12 @@ body {
   border-radius: 25px;
   border: 2px solid #fff;
   margin: 10px;
+  transition: background-color .15s .15s, font-weight 1ms 85ms;
 }
 
 .button:hover,
 .button:focus {
+  transition: background-color .15s .15s, font-weight 1ms .15s;
   outline: none;
   font-weight: 700;
   background-color: #fff;
