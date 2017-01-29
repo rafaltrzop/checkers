@@ -1,8 +1,15 @@
 <script type="text/javascript">
-var GameConfig = {
-  last_move: '{{ last_move }}'
-}
+    var GameConfig = {
+      last_move: '{{ last_move }}'
+    }
 </script>
+
+{% if move_result == false %}
+    <script type="text/javascript">
+        alert("This move is not possible or it's not your turn!");
+    </script>
+{% endif %}
+
 <table class="board">
     {% for row in board %}
         {% set outer_loop = loop %}
