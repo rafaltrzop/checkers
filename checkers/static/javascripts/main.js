@@ -1,6 +1,4 @@
-$(document).ready(function () {
-  bind_events();
-});
+$(document).ready(bind_events);
 
 function bind_events() {
   var current_position = undefined;
@@ -17,33 +15,31 @@ function bind_events() {
         x: $(this).data('x'),
         y: $(this).data('y')
       }
+    } else if (current_position === undefined) {
+      alert('Please choose a piece first.')
     } else {
       destination = {
         x: $(this).data('x'),
         y: $(this).data('y')
       }
+      var pieces = pieces_on_board();
 
-      if (current_position === undefined) {
-        alert('Choose a piece!')
-      } else {
-        var pieces = pieces_on_board();
-        $.post('/move',
-          {
-            cur_x: current_position.x,
-            cur_y: current_position.y,
-            dst_x: destination.x,
-            dst_y: destination.y,
-            pieces: pieces,
-            pieces_count: pieces.length,
-            board_size: $('tr').length,
-            last_move: GameConfig.last_move
-          },
-          function (data, status) {
-            $('body').html(data);
-            bind_events();
-          }
-        );
-      }
+      $.post('/move',
+        {
+          cur_x: current_position.x,
+          cur_y: current_position.y,
+          dst_x: destination.x,
+          dst_y: destination.y,
+          pieces: pieces,
+          pieces_count: pieces.length,
+          board_size: $('tr').length,
+          last_move: GameConfig.last_move
+        },
+        function (data, status) {
+          $('body').html(data);
+          bind_events();
+        }
+      );
     }
   });
 }
