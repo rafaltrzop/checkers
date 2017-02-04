@@ -30,8 +30,8 @@ def test_cannot_move_piece_to_white_square():
     gameboard = Gameboard(board)
     current_position = {'x': 1, 'y': 0}
     destination = {'x': 1, 'y': 1}
-    result = gameboard.move(current_position, destination)
-    assert result == False
+    move = gameboard.move(current_position, destination)
+    assert move.result == False
     assert gameboard.board == board
 
 def test_move_dark_piece_down():
@@ -43,8 +43,8 @@ def test_move_dark_piece_down():
     gameboard = Gameboard(board)
     current_position = {'x': 1, 'y': 0}
     destination = {'x': 0, 'y': 1}
-    result = gameboard.move(current_position, destination)
-    assert result == True
+    move = gameboard.move(current_position, destination)
+    assert move.result == True
     assert gameboard.board == [
         [None, None],
         [dark_piece, None],
@@ -59,8 +59,8 @@ def test_cannot_move_dark_piece_up():
     gameboard = Gameboard(board)
     current_position = {'x': 0, 'y': 1}
     destination = {'x': 1, 'y': 0}
-    result = gameboard.move(current_position, destination)
-    assert result == False
+    move = gameboard.move(current_position, destination)
+    assert move.result == False
     assert gameboard.board == board
 
 def test_move_light_piece_up():
@@ -72,8 +72,8 @@ def test_move_light_piece_up():
     gameboard = Gameboard(board)
     current_position = {'x': 0, 'y': 1}
     destination = {'x': 1, 'y': 0}
-    result = gameboard.move(current_position, destination)
-    assert result == True
+    move = gameboard.move(current_position, destination)
+    assert move.result == True
     assert gameboard.board == [
         [None, light_piece],
         [None, None],
@@ -88,8 +88,8 @@ def test_cannot_move_light_piece_down():
     gameboard = Gameboard(board)
     current_position = {'x': 1, 'y': 0}
     destination = {'x': 0, 'y': 1}
-    result = gameboard.move(current_position, destination)
-    assert result == False
+    move = gameboard.move(current_position, destination)
+    assert move.result == False
     assert gameboard.board == board
 
 def test_cannot_move_light_piece_onto_dark_piece():
@@ -102,8 +102,8 @@ def test_cannot_move_light_piece_onto_dark_piece():
     gameboard = Gameboard(board)
     current_position = {'x': 0, 'y': 1}
     destination = {'x': 1, 'y': 0}
-    result = gameboard.move(current_position, destination)
-    assert result == False
+    move = gameboard.move(current_position, destination)
+    assert move.result == False
     assert gameboard.board == board
 
 def test_cannot_move_dark_piece_onto_ligth_piece():
@@ -116,8 +116,8 @@ def test_cannot_move_dark_piece_onto_ligth_piece():
     gameboard = Gameboard(board)
     current_position = {'x': 1, 'y': 0}
     destination = {'x': 0, 'y': 1}
-    result = gameboard.move(current_position, destination)
-    assert result == False
+    move = gameboard.move(current_position, destination)
+    assert move.result == False
     assert gameboard.board == board
 
 def test_cannot_move_piece_further_than_one_square():
@@ -131,8 +131,8 @@ def test_cannot_move_piece_further_than_one_square():
     gameboard = Gameboard(board)
     current_position = {'x': 1, 'y': 0}
     destination = {'x': 3, 'y': 2}
-    result = gameboard.move(current_position, destination)
-    assert result == False
+    move = gameboard.move(current_position, destination)
+    assert move.result == False
     assert gameboard.board == board
 
 def test_cannot_move_piece_outside_board():
@@ -144,8 +144,8 @@ def test_cannot_move_piece_outside_board():
     gameboard = Gameboard(board)
     current_position = {'x': 1, 'y': 0}
     destination = {'x': 2, 'y': -1}
-    result = gameboard.move(current_position, destination)
-    assert result == False
+    move = gameboard.move(current_position, destination)
+    assert move.result == False
     assert gameboard.board == board
 
 def test_dark_piece_captures_light_piece():
@@ -160,8 +160,8 @@ def test_dark_piece_captures_light_piece():
     gameboard = Gameboard(board)
     current_position = {'x': 1, 'y': 0}
     destination = {'x': 3, 'y': 2}
-    result = gameboard.move(current_position, destination)
-    assert result == True
+    move = gameboard.move(current_position, destination)
+    assert move.result == True
     assert gameboard.board == [
         [None, None, None, None],
         [None, None, None, None],
@@ -181,8 +181,8 @@ def test_light_piece_captures_dark_piece():
     gameboard = Gameboard(board)
     current_position = {'x': 0, 'y': 3}
     destination = {'x': 2, 'y': 1}
-    result = gameboard.move(current_position, destination)
-    assert result == True
+    move = gameboard.move(current_position, destination)
+    assert move.result == True
     assert gameboard.board == [
         [None, None, None, None],
         [None, None, light_piece, None],
@@ -326,8 +326,8 @@ def test_king_cannot_capture_piece_of_the_same_color():
     gameboard = Gameboard(board)
     current_position = {'x': 1, 'y': 0}
     destination = {'x': 3, 'y': 2}
-    result = gameboard.move(current_position, destination)
-    assert result == False
+    move = gameboard.move(current_position, destination)
+    assert move.result == False
     assert gameboard.board == board
 
 def test_king_captures_opponent():
@@ -344,8 +344,8 @@ def test_king_captures_opponent():
     gameboard = Gameboard(board)
     current_position = {'x': 1, 'y': 0}
     destination = {'x': 4, 'y': 3}
-    result = gameboard.move(current_position, destination)
-    assert result == True
+    move = gameboard.move(current_position, destination)
+    assert move.result == True
     assert gameboard.board == [
         [None, None, None, None, None],
         [None, None, None, None, None],
@@ -366,8 +366,8 @@ def test_piece_cannot_move_twice():
 
         current_position = {'x': 1, 'y': 0}
         destination = {'x': 2, 'y': 1}
-        result = gameboard.move(current_position, destination)
-        assert result == True
+        move = gameboard.move(current_position, destination)
+        assert move.result == True
         assert gameboard.board == [
             [None, None, None, None],
             [None, None, piece, None],
@@ -377,8 +377,8 @@ def test_piece_cannot_move_twice():
 
         current_position = destination
         destination = {'x': 1, 'y': 2}
-        result = gameboard.move(current_position, destination)
-        assert result == False
+        move = gameboard.move(current_position, destination)
+        assert move.result == False
         assert gameboard.board == [
             [None, None, None, None],
             [None, None, piece, None],
