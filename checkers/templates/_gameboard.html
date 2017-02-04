@@ -6,7 +6,7 @@
 
 {% if move_result == false %}
     <script type="text/javascript">
-        alert("This move is not possible or it's not your turn!");
+        alert("{{ move_error }}");
     </script>
 {% endif %}
 

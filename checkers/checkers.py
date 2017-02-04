@@ -28,11 +28,11 @@ def move():
             'x': int(request.form['dst_x']),
             'y': int(request.form['dst_y'])
         }
-        move_result = gameboard.move(current_position, destination)
+        move = gameboard.move(current_position, destination)
 
         board = gameboard.board
         last_move = gameboard.last_move
-        return render_template('_gameboard.html', board=board, last_move=last_move, move_result=move_result)
+        return render_template('_gameboard.html', board=board, last_move=last_move, move_result=move['result'], move_error=move['error'])
 
 def __prepare_board(request):
     board_size = int(request.form['board_size'])
