@@ -1,4 +1,5 @@
 from .piece import *
+from .result import *
 
 class Gameboard:
     @classmethod
@@ -60,10 +61,7 @@ class Gameboard:
         dst_x = destination['x']
         dst_y = destination['y']
         if self.last_move == self.board[cur_y][cur_x].color:
-            return {
-                'result': False,
-                'error': 'It is not your move!'
-            }
+            return Result(False, 'It is not your move!')
         dst_is_legal_move = self.__is_legal_move(current_position, destination)
 
         if dst_is_legal_move and type(self.board[dst_y][dst_x]) not in (LightPiece, DarkPiece):
@@ -74,15 +72,9 @@ class Gameboard:
             self.last_move = self.board[cur_y][cur_x].color
             self.board[cur_y][cur_x], self.board[dst_y][dst_x] = self.board[dst_y][dst_x], self.board[cur_y][cur_x]
 
-            return {
-                'result': True,
-                'error': None
-            }
+            return Result(True)
         else:
-            return {
-                'result': False,
-                'error': 'This move is not possible!'
-            }
+            return Result(False, 'This move is not possible!')
 
     def __ensure_valid_board(self, board):
         """Ensures that board is a square and pieces are set on the black squares."""
