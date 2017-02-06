@@ -1,6 +1,8 @@
 $(document).ready(bind_events);
 
 function bind_events() {
+  check_if_someone_won();
+
   var current_position;
   var destination;
   var $selected_piece;
@@ -59,6 +61,19 @@ function bind_events() {
       );
     }
   });
+}
+
+function check_if_someone_won() {
+  var num_of_light_pieces = $('.board__piece--light').length;
+  var num_of_dark_pieces = $('.board__piece--dark').length;
+
+  if (num_of_light_pieces === 0) {
+    alert('Dark pieces won!')
+  }
+
+  if (num_of_dark_pieces === 0) {
+    alert('Light pieces won!')
+  }
 }
 
 function pieces_on_board() {
